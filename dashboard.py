@@ -21,7 +21,7 @@ def train_models():
     y_log_train = np.log1p(y_train)
 
     mean_model = TweedieRegressor(power=1.5, link="log", alpha=0.0, max_iter=10000)
-    mean_model.fit(X_train, y)
+    mean_model.fit(X_train, y_train)
 
     lower_model = GradientBoostingRegressor(loss="quantile", alpha=0.1, random_state=42)
     upper_model = GradientBoostingRegressor(loss="quantile", alpha=0.9, random_state=42)
