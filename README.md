@@ -32,6 +32,19 @@ This project walks through the full data science workflow:
 
 [YouTube Trending Video Dataset](https://www.kaggle.com/datasets/datasnaek/youtube-new) via KaggleHub — trending videos across 10 countries (US, CA, GB, DE, FR, IN, JP, KR, MX, RU).
 
+### Sample Data
+
+| Title | Views | Likes | Dislikes | Comments |
+|-------|------:|------:|---------:|---------:|
+| Eminem - Walk On Water (Audio) ft. Beyoncé | 17,158,579 | 787,425 | 43,420 | 125,882 |
+| PLUSH - Bad Unboxing Fan Mail | 1,014,651 | 127,794 | 1,688 | 13,030 |
+| Racist Superman \| Rudy Mancuso, King Bach & Lele Pons | 3,191,434 | 146,035 | 5,339 | 8,181 |
+| I Dare You: GOING BALD!? | 2,095,828 | 132,239 | 1,989 | 17,518 |
+| Ed Sheeran - Perfect (Official Music Video) | 33,523,622 | 1,634,130 | 21,082 | 85,067 |
+| Jake Paul Says Alissa Violet CHEATED with LOGAN PAUL! | 1,309,699 | 103,755 | 4,613 | 12,143 |
+| Vanoss Superhero School - New Students | 2,987,945 | 187,464 | 9,850 | 26,629 |
+| WE WANT TO TALK ABOUT OUR MARRIAGE | 748,374 | 57,534 | 2,967 | 15,959 |
+
 ---
 
 ## Model
