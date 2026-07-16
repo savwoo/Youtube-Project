@@ -1,14 +1,39 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import TweedieRegressor
+from sklearn.ensemble import GradientBoostingRegressor
+import os
 
-mean_model = joblib.load("mean_model.pkl")
-lower_model = joblib.load("lower_model.pkl")
-upper_model = joblib.load("upper_model.pkl")
+@st.cache_resource
+def train_models():
+    path = os.path.join(os.path.dirname(__file__), "clean_youtube_data.json")
+    df = pd.read_json(path, orient="records", lines=True)
+
+    features = ["likes", "dislikes", "comment_count"]
+    ml_df = df.dropna(subset=features + ["views"]).copy()
+
+    X = np.log1p(ml_df[features])
+    y = ml_df["views"].astype(float)
+
+    X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
+    y_log_train = np.log1p(y_train)
+
+    mean_model = TweedieRegressor(power=1.5, link="log", alpha=0.0, max_iter=10000)
+    mean_model.fit(X_train, y)
+
+    lower_model = GradientBoostingRegressor(loss="quantile", alpha=0.1, random_state=42)
+    upper_model = GradientBoostingRegressor(loss="quantile", alpha=0.9, random_state=42)
+    lower_model.fit(X_train, y_log_train)
+    upper_model.fit(X_train, y_log_train)
+
+    return mean_model, lower_model, upper_model
 
 st.title("YouTube View Predictor")
 st.write("Enter a video's engagement numbers to estimate its view count.")
+
+mean_model, lower_model, upper_model = train_models()
 
 likes = st.number_input("Likes", min_value=0, value=50000, step=1000)
 dislikes = st.number_input("Dislikes", min_value=0, value=2000, step=100)
